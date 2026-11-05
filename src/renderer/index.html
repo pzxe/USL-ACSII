@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' file: data: blob:; font-src 'self'; connect-src 'self'">
+  <title>USL ACSII</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="bg-texture" aria-hidden="true"></div>
+  <div class="screentone" aria-hidden="true"></div>
+
+  <!-- Splash -->
+  <div id="splash">
+    <div id="splash-art"></div>
+    <div class="splash-vignette"></div>
+    <div class="splash-content">
+      <div class="splash-kicker">ASCII ART FORGE</div>
+      <h1 class="splash-title">USL ACSII</h1>
+      <div class="splash-bar"><i></i></div>
+      <div class="splash-sub">sharpening the kagune&hellip;</div>
+    </div>
+  </div>
+
+  <!-- Custom title bar -->
+  <header id="titlebar">
+    <div class="tb-brand">
+      <span class="tb-logo">U</span>
+      <span class="tb-title">USL ACSII</span>
+      <span class="tb-tag">IMAGE &amp; GIF &rarr; ASCII</span>
+    </div>
+    <div class="tb-banner" id="banner" aria-hidden="true"></div>
+    <div class="tb-controls">
+      <button id="btn-min" title="Minimize" aria-label="Minimize"><svg viewBox="0 0 10 10"><path d="M1 5h8"/></svg></button>
+      <button id="btn-max" title="Maximize" aria-label="Maximize"><svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7"/></svg></button>
+      <button id="btn-close" class="close" title="Close" aria-label="Close"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></button>
+    </div>
+  </header>
+
+  <main id="app">
+    <aside id="sidebar">
+      <section class="panel" id="panel-source">
+        <h2><span>01</span> SOURCE</h2>
+        <div id="dropzone" tabindex="0" role="button" aria-label="Drop or choose an image">
+          <div class="dz-big">DROP</div>
+          <div class="dz-text">PNG &middot; JPG &middot; WEBP &middot; GIF</div>
+          <div class="dz-sub">drag &amp; drop here, or click to browse</div>
+        </div>
+        <div id="file-info" class="muted">No file loaded</div>
+      </section>
+
+      <section class="panel">
+        <h2><span>02</span> CHARACTERS</h2>
+        <select id="charset" aria-label="Character set">
+          <option value="detailed">Detailed (70 levels)</option>
+          <option value="standard" selected>Standard (10 levels)</option>
+          <option value="manga">Manga blocks (&#9617;&#9618;&#9619;&#9608;)</option>
+          <option value="custom">Custom characters</option>
+        </select>
+        <input id="custom-chars" type="text" spellcheck="false" maxlength="64" placeholder="light &rarr; dark, e.g.  .oO@" value=" .oO@" hidden>
+        <div class="charset-preview" id="charset-preview"></div>
+      </section>
+
+      <section class="panel">
+        <h2><span>03</span> RESOLUTION</h2>
+        <label class="slider"><span>Width <b id="v-cols">100</b> cols</span>
+          <input id="cols" type="range" min="20" max="300" step="1" value="100"></label>
+      </section>
+
+      <section class="panel">
+        <h2><span>04</span> INK</h2>
+        <div class="seg" id="color-seg" role="radiogroup" aria-label="Color mode">
+          <button data-v="mono" class="on" role="radio">MONO</button>
+          <button data-v="crimson" role="radio">CRIMSON</button>
+          <button data-v="full" role="radio">FULL</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2><span>05</span> TONE</h2>
+        <label class="slider"><span>Contrast <b id="v-contrast">0</b></span>
+          <input id="contrast" type="range" min="-100" max="100" step="1" value="0"></label>
+        <label class="slider"><span>Brightness <b id="v-brightness">0</b></span>
+          <input id="brightness" type="range" min="-100" max="100" step="1" value="0"></label>
+        <label class="toggle"><input id="invert" type="checkbox"><i></i><span>Invert</span></label>
+        <button id="reset-tone" class="ghost">RESET TONE</button>
+      </section>
+    </aside>
+
+    <section id="stage">
+      <div class="frame" id="frame-original">
+        <div class="frame-title"><span>ORIGINAL</span><em id="orig-dims"></em></div>
+        <div class="frame-body" id="orig-body">
+          <canvas id="orig-canvas"></canvas>
+          <div class="empty" id="orig-empty">AWAITING<br>SUBJECT</div>
+        </div>
+      </div>
+      <div class="frame crimson" id="frame-ascii">
+        <div class="frame-title"><span>ASCII</span><em id="ascii-dims"></em></div>
+        <div class="frame-body" id="ascii-body">
+          <canvas id="ascii-canvas"></canvas>
+          <div class="empty" id="ascii-empty">NOTHING<br>TO RENDER</div>
+        </div>
+      </div>
+      <section id="exportbar">
+        <h2>EXPORT</h2>
+        <button id="ex-copy" disabled>COPY TEXT</button>
+        <button id="ex-txt" disabled>.TXT</button>
+        <button id="ex-html" disabled>.HTML</button>
+        <button id="ex-png" disabled>.PNG</button>
+        <button id="ex-gif" class="wide" disabled>ANIMATED .GIF</button>
+        <div id="progress" hidden><div><i></i></div><span id="progress-text"></span></div>
+      </section>
+      <footer id="statusbar">
+        <button id="play" disabled title="Play / Pause">&#10074;&#10074;</button>
+        <span id="status">Ready.</span>
+        <span id="frame-count"></span>
+      </footer>
+    </section>
+  </main>
+
+  <div id="drop-overlay"><div>DROP IT.</div></div>
+  <div id="toast" role="status"></div>
+
+  <script src="vendor/cjs-pre.js"></script>
+  <script src="vendor/gifenc.js"></script>
+  <script src="vendor/cjs-post.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

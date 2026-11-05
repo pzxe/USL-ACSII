@@ -1,0 +1,48 @@
+{
+  "name": "usl-acsii",
+  "version": "0.1.0-beta.1",
+  "description": "USL ACSII - Image & GIF to ASCII art converter",
+  "main": "src/main.js",
+  "author": "USL",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "fetch-assets": "node scripts/fetch-manga.js",
+    "test": "node test/engine.test.js",
+    "prebuild": "node scripts/fetch-manga.js",
+    "build": "electron-builder --win --publish never",
+    "predist": "node scripts/fetch-manga.js",
+    "dist": "electron-builder --win --publish never"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
+    "gifenc": "^1.0.3"
+  },
+  "build": {
+    "appId": "com.usl.acsii",
+    "productName": "USL ACSII",
+    "copyright": "USL ACSII",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["src/**/*", "scripts/fetch-manga.js", "build/icon.png", "package.json"],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "nsis", "arch": ["x64"] }
+      ]
+    },
+    "portable": { "artifactName": "USL-ACSII-${version}-portable.${ext}" },
+    "nsis": {
+      "artifactName": "USL-ACSII-Setup-${version}.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "shortcutName": "USL ACSII",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  }
+}

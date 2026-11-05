@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+*.tsbuildinfo
+
+# Environment and secrets (sample files are kept as placeholders only)
+.env
+.env.*
+!.env.example
+!.env.sample
+.npmrc
+.yarnrc.yml
+secrets.json
+credentials.json
+*.secret
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.keystore
+*.jks
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+
+# Logs, temp files and local cache
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+tmp/
+temp/
+*.tmp
+*.swp
+*~
+.cache/
+.eslintcache
+coverage/
+.nyc_output/
+
+# Local databases and backups
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.dump
+*.bak
+*.backup
+backups/
+
+# IDE and editor settings (may contain personal paths or preferences)
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.user
+.history/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Downloaded manga panels (copyrighted, fetched automatically at build time)
+assets/manga_bg/*
+!assets/manga_bg/.gitkeep
