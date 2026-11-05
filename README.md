@@ -2,7 +2,7 @@
 
 # USL ACSII
 
-**Turn any image or animated GIF into ASCII art — in a Tokyo Ghoul–inspired manga UI.**
+**Turn any image or animated GIF into ASCII art**
 
 [![Release](https://img.shields.io/github/v/release/pzxe/USL-ACSII?include_prereleases&style=for-the-badge&color=c9002b&labelColor=0a0a0a)](https://github.com/pzxe/USL-ACSII/releases)
 [![Build](https://img.shields.io/github/actions/workflow/status/pzxe/USL-ACSII/build.yml?style=for-the-badge&label=build&labelColor=0a0a0a)](https://github.com/pzxe/USL-ACSII/actions/workflows/build.yml)
